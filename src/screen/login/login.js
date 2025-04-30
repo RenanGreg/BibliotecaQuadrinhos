@@ -2,6 +2,8 @@ import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
+import heroesImage from '../../assets/heroes.png';
+import heroes1 from '../../assets/heroes1.png'; 
 
 const Login = () => {
   const validationSchema = Yup.object().shape({
@@ -14,9 +16,15 @@ const Login = () => {
   };
 
   return (
-    <div className="auth-container">
-      <h2>Login</h2>
-      <Formik
+    <div className="login-page">
+      <div className="login-left">
+        <h1 className="title">ESTANTE DE HEROIS</h1>
+        <img src={heroesImage} alt="Heroes" className="heroes-image" />
+      </div>
+      <div className="auth-container">
+
+        <h2>Bem-Vindo a ESTANTE DE HEROIS !</h2>
+        <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
@@ -33,14 +41,13 @@ const Login = () => {
               {errors.password && touched.password && <div className="error">{errors.password}</div>}
             </div>
 
-            <button type="submit" className="btn-submit">Entrar</button>
-            <p>
-              Não tem uma conta? <Link to="/register">Registre-se</Link>
-            </p>
+            <button type="submit" className="btn-submit">Login</button>
+            <Link to="/forgot-password" className="forgot-password">Recuperar senha</Link>
           </Form>
         )}
       </Formik>
     </div>
+  </div>
   );
 };
 
