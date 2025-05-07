@@ -22,9 +22,15 @@
 }
 
 .heroes-image {
-  max-width: 100%;
+  max-width: 90%;
+  min-width: 600px;
   height: auto;
-  margin-bottom: 1rem;
+  margin: 2rem auto;
+  transition: transform 0.4s ease;
+}
+
+.heroes-image:hover {
+  transform: scale(1.15);
 }
 
 .title {
@@ -36,7 +42,7 @@
 .login-page {
   display: flex;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1700px;
   margin: 0 auto;
   background-color: white;
   border-radius: 8px;
@@ -73,20 +79,26 @@
 }
 
 .heroes-image {
-  max-width: 100%;
+  max-width: 57%;
+  min-width: 600px;
   height: auto;
-  margin-bottom: 1rem;
+  margin: 2rem auto;
+  transition: transform 0.4s ease;
+}
+
+.heroes-image:hover {
+  transform: scale(1.15);
 }
 
 .title {
-  font-size: 3.5rem;
+  font-size: 5rem;
   color: #FFD700;
   margin-bottom: 2rem;
   font-weight: bold;
-  letter-spacing: 0.2em;
-  -webkit-text-stroke: 3px #1E90FF;
-  text-stroke: 3px #1E90FF;
-  text-shadow: 3px 3px 0 #1E90FF, 6px 6px 10px rgba(0,0,0,0.3);
+  letter-spacing: 0.25em;
+  -webkit-text-stroke: 4px #1E90FF;
+  text-stroke: 4px #1E90FF;
+  text-shadow: 4px 4px 0 #1E90FF, 8px 8px 12px rgba(0,0,0,0.3);
   background: none;
   border: none;
   border-radius: 0;
@@ -98,10 +110,14 @@
   padding: 2rem;
   border-radius: 8px;
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   text-align: center;
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  height: 100%; 
 }
 
 .recent-logins {
@@ -138,19 +154,21 @@
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .form-control {
-  width: 90%;
+  width: 80%;
   padding: 0.75rem;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 1rem;
   margin: 0 auto;
+  transition: border-color 0.3s ease;
 }
 
 .error {
