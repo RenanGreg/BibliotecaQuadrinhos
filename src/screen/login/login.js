@@ -36,7 +36,7 @@ const Login = () => {
       <div className="auth-container">
 
 
-        <h2>Bem-Vindo ao ESTANTE DE HEROIS !</h2>
+        <h2>Bem-Vindo ao ESTANTE DE HEROIS</h2>
         <Formik
         initialValues={{ email: '', password: '' }} 
         validationSchema={validationSchema}

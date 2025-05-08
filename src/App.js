@@ -4,7 +4,7 @@ import './App.css';
 import Register from './screen/register/register';
 import Login from './screen/login/login.js';
 import Home from './screen/home/Home';
-import ComicDetail from './screen/comics/ComicDetail';
+import ComicDetail from './screen/comic-detail/ComicDetail';
 
 function App() {
   // Usando estado para controlar a autenticação

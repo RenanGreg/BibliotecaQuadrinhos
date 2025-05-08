@@ -53,7 +53,7 @@ const mockComics = [
         title: "Homem-Aranha: De Volta ao Lar",
         author: "Marvel Comics",
         price: 16.50,
-        image: "https://m.media-amazon.com/images/I/81yhhjdThoS._AC_UL320_.jpg"
+        image: "https://imgv2-1-f.scribdassets.com/img/document/698726093/original/0cf5a384eb/1?v=1"
       },
       {
         id: 8,
@@ -61,6 +61,62 @@ const mockComics = [
         author: "Brian K. Vaughan",
         price: 24.90,
         image: "https://m.media-amazon.com/images/I/81s49EEptML._AC_UL320_.jpg"
+      },
+      {
+        id: 9,
+        title: "Berserk Vol. 1",
+        author: "Kentaro Miura",
+        price: 29.90,
+        image: "https://m.media-amazon.com/images/I/61K0fW6l1-L._SL1455_.jpg" 
+      },
+      {
+        id: 10,
+        title: "Akira Vol. 1",
+        author: "Katsuhiro Otomo",
+        price: 32.50,
+        image: "https://m.media-amazon.com/images/I/61ud5BuLRML._SL1000_.jpg"
+      },
+      {
+        id: 11,
+        title: "Vingadores: Guerra Infinita",
+        author: "Marvel Comics",
+        price: 21.90,
+        image: "https://m.media-amazon.com/images/I/91Ngg-4Lh9L._SL1500_.jpg" 
+      },
+      {
+        id: 12,
+        title: "Turma da Mônica: Laços",
+        author: "Mauricio de Sousa", 
+        price: 14.90,
+        image: "https://m.media-amazon.com/images/I/71VzStzoicL._SL1263_.jpg"
+      },
+      {
+        id: 13,
+        title: "Death Note Vol. 1",
+        author: "Tsugumi Ohba e Takeshi Obata",
+        price: 18.90,
+        image: "https://m.media-amazon.com/images/I/612x+rQ0yJL._SL1000_.jpg"
+      },
+      {
+        id: 14,
+        title: "V de Vingança",
+        author: "Alan Moore e David Lloyd",
+        price: 26.90,
+        image: "https://m.media-amazon.com/images/I/71RccWOPFKL._SL1024_.jpg"
+      },
+      {
+        id: 15,
+        title: "Persépolis",
+        author: "Marjane Satrapi",
+        price: 27.50,
+        image: "https://m.media-amazon.com/images/I/71Hda5IPs3L._SL1500_.jpg"
+      },
+      {
+        id: 16,
+        title: "Maus",
+        author: "Art Spiegelman",
+        price: 29.90,
+        image: "https://m.media-amazon.com/images/I/71nXxfnNEcL._SL1375_.jpg"
       }
     ];
 
@@ -83,13 +139,20 @@ const Home = () => {
     }, 500);
   };
 
+  useEffect(() => {
+    if (searchTerm) {
+      const filteredComics = mockComics.filter(comic => 
+        comic.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+        comic.author.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setComics(filteredComics);
+    } else {
+      setComics(mockComics);
+    }
+  }, [searchTerm]);
+
   const handleSearch = (e) => {
-    e.preventDefault();
-    const filteredComics = mockComics.filter(comic => 
-      comic.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      comic.author.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setComics(filteredComics);
+    e.preventDefault(); // Previne o recarregamento da página
   };
 
   const handleGenreChange = (e) => {
@@ -128,20 +191,19 @@ const Home = () => {
       <Navbar onLogout={handleLogout} />
       
       <section className="hero">
-        <h2>Bem-vindo à Biblioteca de Quadrinhos</h2>
-        <p>Explore nossa coleção e alugue seus quadrinhos favoritos!</p>
+        <h2>Bem-vindo à Estante de Heróis</h2>
+        <p>Explore nossa coleção ampliada com mais de 15 quadrinhos e HQs para alugar!</p>
       </section>
 
       <section className="filters">
-        <form className="search-bar" onSubmit={handleSearch}>
+        <div className="search-bar">
           <input 
             type="text" 
             placeholder="Buscar quadrinhos..." 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button type="submit">Buscar</button>
-        </form>
+        </div>
         <div className="filter-options">
           <select value={selectedGenre} onChange={handleGenreChange}>
             <option value="">Todos os gêneros</option>
@@ -151,6 +213,12 @@ const Home = () => {
             <option value="drama">Drama</option>
             <option value="ficcao">Ficção Científica</option>
             <option value="manga">Mangá</option>
+            <option value="herois">Super-Heróis</option>
+            <option value="biografia">Biografia</option>
+            <option value="nacional">Nacional</option>
+            <option value="seinen">Seinen</option>
+            <option value="shonen">Shonen</option>
+            <option value="classico">Clássicos</option>
           </select>
           <select value={sortOption} onChange={handleSortChange}>
             <option value="">Ordenar por</option>

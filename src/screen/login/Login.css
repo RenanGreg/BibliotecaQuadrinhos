@@ -34,7 +34,7 @@
 .btn-submit {
   width: 100%;
   padding: 10px;
-  background-color: #3498db;
+  background-color: #e9e907;
   color: white;
   border: none;
   border-radius: 4px;
@@ -44,7 +44,7 @@
 }
 
 .btn-submit:hover {
-  background-color: #2980b9;
+  background-color: #e9e907;
 }
 
 p {
@@ -53,7 +53,7 @@ p {
 }
 
 a {
-  color: #3498db;
+  color: #e9e907;
   text-decoration: none;
 }
 
