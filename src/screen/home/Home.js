@@ -4,42 +4,42 @@ import Navbar from '../../components/Navbar';
 import ComicCard from '../../components/ComicCard';
 import './Home.css';
 
-// Dados de exemplo para simular a resposta da API
+// Dados de exemplo para simular a resposta da API 
 const mockComics = [
     {
         id: 1,
         title: "Batman: O Cavaleiro das Trevas",
         author: "Frank Miller",
-        price: 15.90,
-        image: "https://m.media-amazon.com/images/I/81Q26VNallL._AC_UL320_.jpg"
+        price: 50.00,
+        image: "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_l55ma6s55129raptum4usjoi1b/-S897-FWEBP" 
       },
       {
         id: 2,
         title: "Watchmen",
         author: "Alan Moore",
         price: 18.50,
-        image: "https://m.media-amazon.com/images/I/81SXU0TTdxL._AC_UL320_.jpg"
+        image: "https://www.panini.de/media/catalog/product/cache/2d16730310b7945c46ddd1ca513e3c42/w/a/watchmen-deluxe-cover896duul02bijn_jict4ogzeuvhu5g0.jpg"
       },
       {
         id: 3,
         title: "Sandman",
         author: "Neil Gaiman",
         price: 22.90,
-        image: "https://m.media-amazon.com/images/I/81YUGMBd0aL._AC_UL320_.jpg"
+        image: "https://m.media-amazon.com/images/I/61YNpOiCpbL._SY466_.jpg"
       },
       {
         id: 4,
         title: "Turma da Mônica Jovem",
         author: "Mauricio de Sousa",
         price: 12.50,
-        image: "https://m.media-amazon.com/images/I/91CjuqOgbDL._AC_UL320_.jpg"
+        image: "https://m.media-amazon.com/images/I/81AhLJUoniL._SY425_.jpg"
       },
       {
         id: 5,
         title: "One Piece Vol. 1",
         author: "Eiichiro Oda",
         price: 19.90,
-        image: "https://m.media-amazon.com/images/I/716EGgqzyOL._AC_UL320_.jpg"
+        image: "https://m.media-amazon.com/images/I/716EGgqzyOL._SY466_.jpg"
       },
       {
         id: 6,
@@ -60,14 +60,14 @@ const mockComics = [
         title: "Saga Vol. 1",
         author: "Brian K. Vaughan",
         price: 24.90,
-        image: "https://m.media-amazon.com/images/I/81s49EEptML._AC_UL320_.jpg"
+        image: "https://m.media-amazon.com/images/I/51oGjs9VJOL._SY445_SX342_.jpg"
       },
       {
         id: 9,
         title: "Berserk Vol. 1",
         author: "Kentaro Miura",
         price: 29.90,
-        image: "https://m.media-amazon.com/images/I/61K0fW6l1-L._SL1455_.jpg" 
+        image: "https://a-static.mlcdn.com.br/800x560/livro-berserk-vol-1/apaginadistribuidoradelivros/9788542617092/24403e16fb77d11e3044533f056ac721.jpg" 
       },
       {
         id: 10,
@@ -81,7 +81,7 @@ const mockComics = [
         title: "Vingadores: Guerra Infinita",
         author: "Marvel Comics",
         price: 21.90,
-        image: "https://m.media-amazon.com/images/I/91Ngg-4Lh9L._SL1500_.jpg" 
+        image: "https://m.media-amazon.com/images/I/A1Sq8q77OfL._SY466_.jpg" 
       },
       {
         id: 12,

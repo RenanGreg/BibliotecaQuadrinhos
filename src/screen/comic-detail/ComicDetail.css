@@ -1,12 +1,21 @@
 .comic-detail-container {
   min-height: 100vh;
   background-color: #f5f6fa;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .comic-detail-content {
   max-width: 1200px;
+  width: 95%;
   margin: 0 auto;
   padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .comic-detail-content {
+    padding: 1rem;
+  }
 }
 
 .comic-detail-grid {
@@ -17,6 +26,21 @@
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .comic-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .comic-detail-grid {
+    padding: 1rem;
+    gap: 1rem;
+  }
 }
 
 .comic-detail-image img {
@@ -34,7 +58,7 @@
 }
 
 .comic-detail-info h1 {
-  font-size: 2.5rem;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
   color: #2c3e50;
   margin-bottom: 0.5rem;
 }
@@ -46,7 +70,7 @@
 }
 
 .comic-detail-info .price {
-  font-size: 2rem;
+  font-size: clamp(1.3rem, 4vw, 2rem);
   font-weight: bold;
   color: #2c3e50;
   margin: 1rem 0;
@@ -59,13 +83,20 @@
 }
 
 .comic-detail-actions button {
-  padding: 1rem 2rem;
+  padding: 0.8rem 1.5rem;
   border: none;
   border-radius: 4px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+
+@media (max-width: 480px) {
+  .comic-detail-actions button {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
 }
 
 .rent-btn {

@@ -10,7 +10,7 @@ const mockComics = [
     title: "Batman: O Cavaleiro das Trevas",
     author: "Frank Miller",
     price: 15.90,
-    image: "https://via.placeholder.com/250x350/1a1a1a/ffffff?text=Batman",
+    image: "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_l55ma6s55129raptum4usjoi1b/-S897-FWEBP",
     description: "Uma das histórias mais icônicas do Batman, onde Bruce Wayne retorna da aposentadoria para combater o crime em uma Gotham City distópica.",
     publisher: "DC Comics",
     year: 1986,

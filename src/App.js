@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import Register from './screen/register/register';
-import Login from './screen/login/login.js';
+import Login from './screen/login/login';
 import Home from './screen/home/Home';
 import ComicDetail from './screen/comic-detail/ComicDetail';
+
+// Verificar se o console está mostrando o componente Login importado
+console.log('Login component:', Login);
 
 function App() {
   // Usando estado para controlar a autenticação
@@ -42,7 +45,7 @@ function App() {
           path="/comics/:id" 
           element={isAuthenticated ? <ComicDetail /> : <Navigate to="/login" />} 
         />
-        <Route path="/" element={<Navigate to={isAuthenticated ? "/home" : "/login"} />} />
+        <Route path="/" element={<Login />} />
       </Routes>
     </Router>
   );

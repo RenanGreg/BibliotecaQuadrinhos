@@ -3,24 +3,40 @@
   background-color: #f5f5f5;
   max-height: 100vh;
   overflow-y: auto;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* Hero Section */
 .hero {
   text-align: center;
-  padding: 3rem 1rem;
+  padding: 2rem 1rem;
   background-color: #3498db;
   color: white;
   margin-bottom: 2rem;
 }
 
+@media (max-width: 768px) {
+  .hero {
+    padding: 1.5rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
 .hero h2 {
-  font-size: 2.5rem;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
   margin-bottom: 1rem;
 }
 
 .hero p {
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 3vw, 1.2rem);
 }
 
 /* Filters */
@@ -80,6 +96,29 @@
   gap: 2rem;
   padding: 0 2rem 3rem;
   margin-bottom: 2rem;
+}
+
+@media (max-width: 992px) {
+  .comics-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .comics-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    padding: 0 1.5rem 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .comics-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    padding: 0 1rem 1.5rem;
+  }
 }
 
 .no-results {
