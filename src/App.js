@@ -5,6 +5,7 @@ import Register from './screen/register/register';
 import Login from './screen/login/login';
 import Home from './screen/home/Home';
 import ComicDetail from './screen/comic-detail/ComicDetail';
+import MyRentals from './screen/my-rentals/MyRentals';
 
 // Verificar se o console está mostrando o componente Login importado
 console.log('Login component:', Login);
@@ -44,6 +45,10 @@ function App() {
         <Route 
           path="/comics/:id" 
           element={isAuthenticated ? <ComicDetail /> : <Navigate to="/login" />} 
+        />
+        <Route 
+          path="/my-rentals" 
+          element={isAuthenticated ? <MyRentals /> : <Navigate to="/login" />} 
         />
         <Route path="/" element={<Login />} />
       </Routes>
