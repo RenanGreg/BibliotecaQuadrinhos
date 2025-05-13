@@ -17,7 +17,7 @@ const Navbar = ({ onLogout }) => {
         <Link to="/home" className={location.pathname === '/catalog' ? 'active' : ''}>
           Catálogo
         </Link>
-        <Link to="/home" className={location.pathname === '/my-rentals' ? 'active' : ''}>
+        <Link to="/my-rentals" className={location.pathname === '/my-rentals' ? 'active' : ''}>
           Meus Aluguéis
         </Link>
         <Link to="/home" className={location.pathname === '/profile' ? 'active' : ''}>

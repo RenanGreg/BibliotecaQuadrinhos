@@ -117,6 +117,90 @@ const mockComics = [
         author: "Art Spiegelman",
         price: 29.90,
         image: "https://m.media-amazon.com/images/I/71nXxfnNEcL._SL1375_.jpg"
+      },
+      {
+        id: 17,
+        title: "Fullmetal Alchemist Vol. 1",
+        author: "Hiromu Arakawa",
+        price: 24.90,
+        image: "https://m.media-amazon.com/images/I/51t+BkN5sCL._SY445_SX342_PQ84_.jpg"
+      },
+      {
+        id: 18,
+        title: "Dragon Ball Vol. 1",
+        author: "Akira Toriyama",
+        price: 19.90,
+        image: "https://cdn.kobo.com/book-images/422e2255-0fc6-4973-812c-ad7df9003584/353/569/90/False/dragon-ball-super-vol-1.jpg"
+      },
+      {
+        id: 19,
+        title: "Y: O Último Homem",
+        author: "Brian K. Vaughan",
+        price: 34.90,
+        image: "https://panini.com.br/media/catalog/product/A/L/ALIBB001R.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=897&width=960&canvas=960:897"
+      },
+      {
+        id: 20,
+        title: "Demon Slayer Vol. 1",
+        author: "Koyoharu Gotouge",
+        price: 21.90,
+        image: "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_kf32gsogi53qj8o3vjbju9s861/-S897-FWEBP"
+      },
+      {
+        id: 21,
+        title: "The Walking Dead Vol. 1",
+        author: "Robert Kirkman",
+        price: 28.90,
+        image: "https://www.traca.com.br/capas/1427/1427915.jpg"
+      },
+      {
+        id: 22,
+        title: "Chainsaw Man Vol. 1",
+        author: "Tatsuki Fujimoto",
+        price: 23.90,
+        image: "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_ajkdcp6hsh22d0otj30glh7p60/-S897-FWEBP"
+      },
+      {
+        id: 23,
+        title: "Preacher Vol. 1",
+        author: "Garth Ennis",
+        price: 31.90,
+        image: "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_la6g5f5cs53ona8q4dj0p9mm68/-S897-FWEBP"
+      },
+      {
+        id: 24,
+        title: "Jujutsu Kaisen Vol. 1",
+        author: "Gege Akutami",
+        price: 22.90,
+        image: "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_bmmm1r8arp25507lhj76h4b30e/-S897-FWEBP"
+      },
+      {
+        id: 25,
+        title: "Hellboy Vol. 1",
+        author: "Mike Mignola",
+        price: 27.90,
+        image: "https://m.media-amazon.com/images/I/71HONLIqVcL._SY385_.jpg"
+      },
+      {
+        id: 26,
+        title: "Attack on Titan Vol. 1",
+        author: "Hajime Isayama",
+        price: 25.90,
+        image: "https://m.media-amazon.com/images/I/91M9VaZWxOL._SY466_.jpg"
+      },
+      {
+        id: 27,
+        title: "Sin City",
+        author: "Frank Miller",
+        price: 33.90,
+        image: "https://m.media-amazon.com/images/I/51VL750X58L._SY445_SX342_PQ84_.jpg"
+      },
+      {
+        id: 28,
+        title: "Asilo Arkham",
+        author: "Grant Morrison",
+        price: 35.90,
+        image: "https://rika.vtexassets.com/arquivos/ids/240361-800-auto?v=635316706968470000&width=800&height=auto&aspect=true"
       }
     ];
 
@@ -125,7 +209,18 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
   const [sortOption, setSortOption] = useState('');
+  const [currentPage, setCurrentPage] = useState(() => {
+    // Recuperar a página atual do localStorage ou usar 1 como padrão
+    const savedPage = localStorage.getItem('currentPage');
+    return savedPage ? parseInt(savedPage) : 1;
+  });
+  const itemsPerPage = 12;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Salvando a página atual no localStorage sempre que ela mudar
+    localStorage.setItem('currentPage', currentPage);
+  }, [currentPage]);
 
   useEffect(() => {
     // Simulando uma chamada de API
@@ -146,6 +241,7 @@ const Home = () => {
         comic.author.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setComics(filteredComics);
+      setCurrentPage(1); // Resetar para a primeira página quando pesquisar
     } else {
       setComics(mockComics);
     }
@@ -157,6 +253,7 @@ const Home = () => {
 
   const handleGenreChange = (e) => {
     setSelectedGenre(e.target.value);
+    setCurrentPage(1); // Resetar para a primeira página quando mudar o gênero
     // Em um cenário real, você filtraria com base no gênero
     // Por enquanto, apenas recarregamos os quadrinhos
     fetchComics();
@@ -186,13 +283,25 @@ const Home = () => {
     navigate('/login');
   };
 
+  // Lógica de paginação
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = comics.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(comics.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo(0, 0);
+    localStorage.setItem('currentPage', pageNumber);
+  };
+
   return (
     <div className="home-container">
       <Navbar onLogout={handleLogout} />
       
       <section className="hero">
         <h2>Bem-vindo à Estante de Heróis</h2>
-        <p>Explore nossa coleção ampliada com mais de 15 quadrinhos e HQs para alugar!</p>
+        <p>Explore nossa coleção ampliada com mais de {mockComics.length} quadrinhos e HQs para alugar!</p>
       </section>
 
       <section className="filters">
@@ -231,8 +340,8 @@ const Home = () => {
       </section>
 
       <section className="comics-grid">
-        {comics.length > 0 ? (
-          comics.map(comic => (
+        {currentItems.length > 0 ? (
+          currentItems.map(comic => (
             <ComicCard 
               key={comic.id} 
               comic={comic} 
@@ -242,6 +351,38 @@ const Home = () => {
           <p className="no-results">Nenhum quadrinho encontrado.</p>
         )}
       </section>
+
+      {comics.length > itemsPerPage && (
+        <div className="pagination">
+          <button 
+            onClick={() => handlePageChange(currentPage - 1)} 
+            disabled={currentPage === 1}
+            className="pagination-btn"
+          >
+            Anterior
+          </button>
+          
+          <div className="page-numbers">
+            {[...Array(totalPages)].map((_, index) => (
+              <button
+                key={index + 1}
+                onClick={() => handlePageChange(index + 1)}
+                className={`pagination-btn ${currentPage === index + 1 ? 'active' : ''}`}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+
+          <button 
+            onClick={() => handlePageChange(currentPage + 1)} 
+            disabled={currentPage === totalPages}
+            className="pagination-btn"
+          >
+            Próxima
+          </button>
+        </div>
+      )}
     </div>
   );
 };
