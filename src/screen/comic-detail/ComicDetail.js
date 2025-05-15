@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import './ComicDetail.css';
@@ -150,7 +150,7 @@ const mockComics = [
         title: "The Walking Dead Vol. 1",
         author: "Robert Kirkman",
         price: 28.90,
-        image: "https://www.traca.com.br/capas/1427/1427915.jpg"
+        image: "https://m.media-amazon.com/images/I/91+pwoC9LaS._SY466_.jpg"
       },
       {
         id: 22,
@@ -200,21 +200,120 @@ const mockComics = [
         author: "Grant Morrison",
         price: 35.90,
         image: "https://rika.vtexassets.com/arquivos/ids/240361-800-auto?v=635316706968470000&width=800&height=auto&aspect=true"
+      },
+      {
+        id: 29,
+        title: "My Hero Academia Vol. 1",
+        author: "Kohei Horikoshi",
+        price: 19.90,
+        image: "https://m.media-amazon.com/images/I/71bELfIWTDL._SY425_.jpg"
+      },
+      {
+        id: 30,
+        title: "Cavaleiros do Zodíaco Vol. 1",
+        author: "Masami Kurumada",
+        price: 23.90,
+        image: "https://m.media-amazon.com/images/I/616IVLdrhtL._SY445_SX342_.jpg"
+      },
+      {
+        id: 31,
+        title: "Bleach Vol. 1",
+        author: "Tite Kubo",
+        price: 21.90,
+        image: "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_noplm1mskh41145o8m7aos191j/-S897-FWEBP"
+      },
+      {
+        id: 32,
+        title: "Hunter x Hunter Vol. 1",
+        author: "Yoshihiro Togashi",
+        price: 24.90,
+        image: "https://m.media-amazon.com/images/I/61NPpt5HC6L._SY466_.jpg"
+      }, 
+      {
+        id: 33,
+        title: "Black Clover Vol. 1",
+        author: "Yūki Tabata",
+        price: 20.90,
+        image: "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_e75l43kril3sf2f26uf9vga32s/-S897-FWEBP"
+      },
+      {
+        id: 34,
+        title: "Spawn: Origins Vol. 1",
+        author: "Todd McFarlane",
+        price: 32.90,
+        image: "https://m.media-amazon.com/images/I/81Ng3JgvINL._SY466_.jpg"
+      },
+      {
+        id: 35,
+        title: "Deadpool: Mata o Universo Marvel",
+        author: "Cullen Bunn",
+        price: 28.90,
+        image: "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_hm34ejhje12fhacqqn2hq5e22u/-S897-FWEBP"
+      },
+      {
+        id: 36,
+        title: "Homem de Ferro: Extremis",
+        author: "Warren Ellis",
+        price: 26.90,
+        image: "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_j2r9le6kj53jj9r8ujb9pvhl2e/-S897-FWEBP"
       }
+      
 ];
 
 const ComicDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [comic, setComic] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Simulando busca do quadrinho pelo ID
-  const comic = mockComics.find(comic => comic.id === parseInt(id));
+  useEffect(() => {
+    const fetchComic = () => {
+      setLoading(true);
+      try {
+        const foundComic = mockComics.find(comic => comic.id === parseInt(id));
+        if (foundComic) {
+          setComic(foundComic);
+          setError(null);
+        } else {
+          setError('Quadrinho não encontrado');
+        }
+      } catch (err) {
+        setError('Erro ao carregar o quadrinho');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchComic();
+  }, [id]);
 
   const handleBack = () => {
     navigate(-1);
   };
 
   const handleBuy = () => {
+    // Recupera os quadrinhos já comprados ou cria um array vazio
+    const purchasedComics = JSON.parse(localStorage.getItem('purchasedComics')) || [];
+    
+    // Verifica se o quadrinho já está comprado
+    const isAlreadyPurchased = purchasedComics.some(purchasedComic => purchasedComic.id === comic.id);
+    
+    if (isAlreadyPurchased) {
+      alert('Este quadrinho já foi comprado por você!');
+      return;
+    }
+
+    // Adiciona o quadrinho atual com a data de compra
+    const comicWithPurchaseDate = {
+      ...comic,
+      date: new Date().toLocaleDateString('pt-BR')
+    };
+    
+    // Adiciona o novo quadrinho à lista e salva no localStorage
+    purchasedComics.push(comicWithPurchaseDate);
+    localStorage.setItem('purchasedComics', JSON.stringify(purchasedComics));
+    
     alert(`Quadrinho "${comic.title}" comprado com sucesso!`);
   };
 
@@ -243,12 +342,23 @@ const ComicDetail = () => {
     alert(`Quadrinho "${comic.title}" reservado com sucesso!`);
   };
 
-  if (!comic) {
+  if (loading) {
     return (
       <div className="comic-detail-container">
         <Navbar />
         <div className="comic-detail-content">
-          <h2>Quadrinho não encontrado</h2>
+          <h2>Carregando...</h2>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="comic-detail-container">
+        <Navbar />
+        <div className="comic-detail-content">
+          <h2>{error}</h2>
           <button className="back-btn" onClick={handleBack}>Voltar</button>
         </div>
       </div>

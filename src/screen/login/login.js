@@ -20,7 +20,8 @@ const Login = () => {
     try {
       setLoginError('');
       
-      // Reativando o código de conexão com o servidor
+      // Código de conexão com o servidor (temporariamente comentado)
+      /*
       const response = await fetch('http://127.0.0.1:8080/login', {
         method: 'POST',
         headers: {
@@ -31,34 +32,24 @@ const Login = () => {
 
       if (response.ok) {
         const data = await response.json();
-        // Salvar token ou informações do usuário se a API retornar
         localStorage.setItem('isAuthenticated', 'true');
         if (data.token) {
           localStorage.setItem('token', data.token);
         }
-        
-        // Disparar um evento de storage para notificar outras partes da aplicação
         window.dispatchEvent(new Event('storage'));
-        
-        // Navegar para a página inicial
         navigate('/home');
       } else {
         const errorData = await response.json();
         setLoginError(errorData.message || 'Falha na autenticação. Verifique suas credenciais.');
       }
-      
-      // Comentando a simulação de login
-      /*
+      */
+
+      // Simulação temporária de login
       console.log('Dados de login:', values);
       localStorage.setItem('isAuthenticated', 'true');
       localStorage.setItem('token', 'token-simulado-123456');
-      
-      // Disparar um evento de storage para notificar outras partes da aplicação
       window.dispatchEvent(new Event('storage'));
-      
-      // Navegar para a página inicial
       navigate('/home');
-      */
       
     } catch (error) {
       console.error('Erro ao fazer login:', error);

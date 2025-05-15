@@ -16,7 +16,7 @@ function App() {
     localStorage.getItem('isAuthenticated') === 'true'
   );
   
-  // Atualizar o estado quando o localStorage mudar
+  // Atualizar o estado quando o localStorage mudar e limpar o carrinho ao iniciar
   useEffect(() => {
     const checkAuth = () => {
       setIsAuthenticated(localStorage.getItem('isAuthenticated') === 'true');
@@ -24,6 +24,10 @@ function App() {
     
     // Verificar autenticação quando o componente montar
     checkAuth();
+    
+    // Limpar o carrinho ao iniciar o aplicativo
+    localStorage.removeItem('rentedComics');
+    localStorage.removeItem('purchasedComics');
     
     // Adicionar um event listener para detectar mudanças no localStorage
     window.addEventListener('storage', checkAuth);

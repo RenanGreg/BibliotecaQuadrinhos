@@ -30,7 +30,8 @@ const Register = () => {
       // Remover confirmPassword antes de enviar para a API
       const { confirmPassword, ...dataToSend } = values;
       
-      // Usando caminho relativo em vez de absoluto
+      // Código de conexão com o servidor (temporariamente comentado)
+      /*
       const response = await fetch('/register', {
         method: 'POST',
         headers: {
@@ -46,13 +47,12 @@ const Register = () => {
         const errorData = await response.json();
         setRegisterError(errorData.message || 'Erro ao cadastrar. Verifique os dados e tente novamente.');
       }
-      
-      // Comentando a simulação de cadastro
-      /*
+      */
+
+      // Simulação temporária de cadastro
       console.log('Dados de cadastro:', dataToSend);
       alert('Cadastro realizado com sucesso!');
       navigate('/login');
-      */
       
     } catch (error) {
       console.error('Erro ao registrar:', error);

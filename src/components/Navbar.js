@@ -14,14 +14,8 @@ const Navbar = ({ onLogout }) => {
         <Link to="/home" className={location.pathname === '/home' ? 'active' : ''}>
           Início
         </Link>
-        <Link to="/home" className={location.pathname === '/catalog' ? 'active' : ''}>
-          Catálogo
-        </Link>
         <Link to="/my-rentals" className={location.pathname === '/my-rentals' ? 'active' : ''}>
-          Meus Aluguéis
-        </Link>
-        <Link to="/home" className={location.pathname === '/profile' ? 'active' : ''}>
-          Perfil
+          Meu Carrinho
         </Link>
         <button onClick={onLogout} className="logout-btn">
           Sair

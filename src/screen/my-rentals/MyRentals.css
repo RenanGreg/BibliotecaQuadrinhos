@@ -10,45 +10,76 @@
 }
 
 .my-rentals-content h1 {
-  margin-bottom: 2rem;
   color: #333;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
-.rented-comics-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 2rem;
-}
-
-.rented-comic-card {
+.comics-section {
   background: white;
   border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.2s;
 }
 
-.rented-comic-card:hover {
+.comics-section h2 {
+  color: #444;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.comics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.comic-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.comic-card:hover {
   transform: translateY(-5px);
 }
 
-.rented-comic-card img {
+.comic-card img {
   width: 100%;
   height: 300px;
   object-fit: cover;
 }
 
-.comic-info {
+.comic-card .comic-info {
   padding: 1rem;
 }
 
-.comic-info h3 {
+.comic-card h3 {
   margin: 0;
   color: #333;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
-.comic-info p {
+.comic-card p {
   margin: 0.5rem 0;
   color: #666;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .my-rentals-content {
+    padding: 1rem;
+  }
+
+  .comics-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .comic-card img {
+    height: 250px;
+  }
 }

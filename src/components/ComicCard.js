@@ -18,14 +18,20 @@ const ComicCard = ({ comic }) => {
 
   const handleBuy = (e) => {
     e.stopPropagation();
+    const purchasedComics = JSON.parse(localStorage.getItem('purchasedComics')) || [];
+    const comicWithDate = { ...comic, date: new Date().toLocaleDateString() };
+    purchasedComics.push(comicWithDate);
+    localStorage.setItem('purchasedComics', JSON.stringify(purchasedComics));
     alert(`Quadrinho "${comic.title}" comprado com sucesso!`);
-    // Em um cenário real, você faria uma chamada para a API
   };
 
   const handleReserve = (e) => {
     e.stopPropagation();
+    const rentedComics = JSON.parse(localStorage.getItem('rentedComics')) || [];
+    const comicWithDate = { ...comic, date: new Date().toLocaleDateString() };
+    rentedComics.push(comicWithDate);
+    localStorage.setItem('rentedComics', JSON.stringify(rentedComics));
     alert(`Quadrinho "${comic.title}" reservado com sucesso!`);
-    // Em um cenário real, você faria uma chamada para a API
   };
 
   const handleCardClick = () => {
