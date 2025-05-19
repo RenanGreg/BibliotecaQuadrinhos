@@ -48,6 +48,8 @@ const Login = () => {
       console.log('Dados de login:', values);
       localStorage.setItem('isAuthenticated', 'true');
       localStorage.setItem('token', 'token-simulado-123456');
+      // Limpar a página atual para garantir que comece na página 1
+      localStorage.removeItem('currentPage');
       window.dispatchEvent(new Event('storage'));
       navigate('/home');
       

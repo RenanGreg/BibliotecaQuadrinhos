@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import './App.css';
 import Register from './screen/register/register';
 import Login from './screen/login/login';
@@ -9,6 +9,17 @@ import MyRentals from './screen/my-rentals/MyRentals';
 
 // Verificar se o console está mostrando o componente Login importado
 console.log('Login component:', Login);
+
+// Componente que controla o scroll
+function ScrollToTop() {
+  const location = useLocation();
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  return null;
+}
 
 function App() {
   // Usando estado para controlar a autenticação
@@ -39,6 +50,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />

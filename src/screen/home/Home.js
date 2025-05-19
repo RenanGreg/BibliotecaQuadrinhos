@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import ComicCard from '../../components/ComicCard';
+import ScrollWrapper from '../../components/ScrollWrapper';
 import './Home.css';
 
 // Dados de exemplo para simular a resposta da API 
@@ -265,11 +266,8 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
   const [sortOption, setSortOption] = useState('');
-  const [currentPage, setCurrentPage] = useState(() => {
-    // Recuperar a página atual do localStorage ou usar 1 como padrão
-    const savedPage = localStorage.getItem('currentPage');
-    return savedPage ? parseInt(savedPage) : 1;
-  });
+  const homeRef = React.useRef(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
   const navigate = useNavigate();
 
@@ -302,6 +300,14 @@ const Home = () => {
       setComics(mockComics);
     }
   }, [searchTerm]);
+
+  useEffect(() => {
+    // Força o scroll para o topo quando o componente montar
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant'
+    });
+  }, []); // Executar apenas uma vez quando o componente montar
 
   const handleSearch = (e) => {
     e.preventDefault(); // Previne o recarregamento da página
@@ -345,101 +351,119 @@ const Home = () => {
   const currentItems = comics.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(comics.length / itemsPerPage);
 
-  const handlePageChange = (pageNumber) => {
+  const scrollToTop = () => {
+    const homeContainer = document.querySelector('.home-container');
+    if (homeContainer) {
+      homeContainer.scrollIntoView({ behavior: "auto", block: "start" });
+    }
+  };
+
+
+
+  const handlePageChange = async (pageNumber) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant'
+    });
+    
+    // Pequeno delay para garantir que o scroll aconteça antes da mudança de página
+    await new Promise(resolve => setTimeout(resolve, 50));
+    
     setCurrentPage(pageNumber);
-    window.scrollTo(0, 0);
     localStorage.setItem('currentPage', pageNumber);
   };
 
   return (
-    <div className="home-container">
-      <Navbar onLogout={handleLogout} />
-      
-      <section className="hero">
-        <h2>Bem-vindo à Estante de Heróis</h2>
-        <p>Explore nossa coleção ampliada com mais de {mockComics.length} quadrinhos e HQs para alugar!</p>
-      </section>
+    <ScrollWrapper>
+      <div className="home-container" ref={homeRef}>
+        <Navbar onLogout={handleLogout} />
+        
+        <section className="hero">
+          <h2>Bem-vindo à Estante de Heróis</h2>
+          <p>Explore nossa coleção ampliada com mais de {mockComics.length} quadrinhos e HQs para alugar!</p>
+        </section>
 
-      <section className="filters">
-        <div className="search-bar">
-          <input 
-            type="text" 
-            placeholder="Buscar quadrinhos..." 
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-        <div className="filter-options">
-          <select value={selectedGenre} onChange={handleGenreChange}>
-            <option value="">Todos os gêneros</option>
-            <option value="acao">Ação</option>
-            <option value="aventura">Aventura</option>
-            <option value="comedia">Comédia</option>
-            <option value="drama">Drama</option>
-            <option value="ficcao">Ficção Científica</option>
-            <option value="manga">Mangá</option>
-            <option value="herois">Super-Heróis</option>
-            <option value="biografia">Biografia</option>
-            <option value="nacional">Nacional</option>
-            <option value="seinen">Seinen</option>
-            <option value="shonen">Shonen</option>
-            <option value="classico">Clássicos</option>
-          </select>
-          <select value={sortOption} onChange={handleSortChange}>
-            <option value="">Ordenar por</option>
-            <option value="recentes">Mais recentes</option>
-            <option value="populares">Mais populares</option>
-            <option value="preco-asc">Preço: menor para maior</option>
-            <option value="preco-desc">Preço: maior para menor</option>
-          </select>
-        </div>
-      </section>
-
-      <section className="comics-grid">
-        {currentItems.length > 0 ? (
-          currentItems.map(comic => (
-            <ComicCard 
-              key={comic.id} 
-              comic={comic} 
+        <section className="filters">
+          <div className="search-bar">
+            <input 
+              type="text" 
+              placeholder="Buscar quadrinhos..." 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
-          ))
-        ) : (
-          <p className="no-results">Nenhum quadrinho encontrado.</p>
-        )}
-      </section>
-
-      {comics.length > itemsPerPage && (
-        <div className="pagination">
-          <button 
-            onClick={() => handlePageChange(currentPage - 1)} 
-            disabled={currentPage === 1}
-            className="pagination-btn"
-          >
-            Anterior
-          </button>
-          
-          <div className="page-numbers">
-            {[...Array(totalPages)].map((_, index) => (
-              <button
-                key={index + 1}
-                onClick={() => handlePageChange(index + 1)}
-                className={`pagination-btn ${currentPage === index + 1 ? 'active' : ''}`}
-              >
-                {index + 1}
-              </button>
-            ))}
           </div>
+          <div className="filter-options">
+            <select value={selectedGenre} onChange={handleGenreChange}>
+              <option value="">Todos os gêneros</option>
+              <option value="acao">Ação</option>
+              <option value="aventura">Aventura</option>
+              <option value="comedia">Comédia</option>
+              <option value="drama">Drama</option>
+              <option value="ficcao">Ficção Científica</option>
+              <option value="manga">Mangá</option>
+              <option value="herois">Super-Heróis</option>
+              <option value="biografia">Biografia</option>
+              <option value="nacional">Nacional</option>
+              <option value="seinen">Seinen</option>
+              <option value="shonen">Shonen</option>
+              <option value="classico">Clássicos</option>
+            </select>
+            <select value={sortOption} onChange={handleSortChange}>
+              <option value="">Ordenar por</option>
+              <option value="recentes">Mais recentes</option>
+              <option value="populares">Mais populares</option>
+              <option value="preco-asc">Preço: menor para maior</option>
+              <option value="preco-desc">Preço: maior para menor</option>
+            </select>
+          </div>
+        </section>
 
-          <button 
-            onClick={() => handlePageChange(currentPage + 1)} 
-            disabled={currentPage === totalPages}
-            className="pagination-btn"
-          >
-            Próxima
-          </button>
-        </div>
-      )}
-    </div>
+        <section className="comics-grid">
+          {currentItems.length > 0 ? (
+            currentItems.map(comic => (
+              <ComicCard 
+                key={comic.id} 
+                comic={comic} 
+              />
+            ))
+          ) : (
+            <p className="no-results">Nenhum quadrinho encontrado.</p>
+          )}
+        </section>
+
+        {comics.length > itemsPerPage && (
+          <div className="pagination">
+            <button 
+              onClick={() => handlePageChange(currentPage - 1)} 
+              disabled={currentPage === 1}
+              className="pagination-btn"
+            >
+              Anterior
+            </button>
+            
+            <div className="page-numbers">
+              {[...Array(totalPages)].map((_, index) => (
+                <button
+                  key={index + 1}
+                  onClick={() => handlePageChange(index + 1)}
+                  className={`pagination-btn ${currentPage === index + 1 ? 'active' : ''}`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+
+            <button 
+              onClick={() => handlePageChange(currentPage + 1)} 
+              disabled={currentPage === totalPages}
+              className="pagination-btn"
+            >
+              Próxima
+            </button>
+          </div>
+        )}
+      </div>
+    </ScrollWrapper>
   );
 };
 
